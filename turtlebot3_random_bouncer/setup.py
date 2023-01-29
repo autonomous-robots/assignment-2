@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'random_bouncer'
+package_name = 'turtlebot3_random_bouncer'
 
 setup(
     name=package_name,
