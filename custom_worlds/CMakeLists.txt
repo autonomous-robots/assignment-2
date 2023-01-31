@@ -6,6 +6,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(gazebo_ros_pkgs REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -14,8 +16,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-install(DIRECTORY launch models worlds
+install(DIRECTORY launch models worlds urdf
   DESTINATION share/${PROJECT_NAME}/
 )
-
+ament_export_dependencies(gazebo_ros_pkgs)
 ament_package()

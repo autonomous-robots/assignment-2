@@ -9,7 +9,9 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
-    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
+    launch_file_dir_gazebo = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
+    launch_file_dir_custom = os.path.join(get_package_share_directory('custom_worlds'), 'launch')
+
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
     pkg_custom_worlds = get_package_share_directory('custom_worlds')
 
@@ -30,7 +32,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
         ),
-        launch_arguments={'world': world_arg}.items()
+        launch_arguments={'world': world_arg, 'verbose': 'true'}.items()
     )
 
     gzclient_cmd = IncludeLaunchDescription(
@@ -46,14 +48,14 @@ def generate_launch_description():
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'robot_state_publisher.launch.py')
+            os.path.join(launch_file_dir_custom, 'robot_state_publisher.launch.py')
         ),
         launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
     spawn_turtlebot_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
+            os.path.join(launch_file_dir_custom, 'spawn_turtlebot3.launch.py')
         ),
         launch_arguments={
             'x_pose': x_pose,
