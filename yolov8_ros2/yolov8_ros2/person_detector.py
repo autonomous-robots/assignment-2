@@ -57,9 +57,3 @@ class PersonDetector(Node):
                     detections.boxes[0] = bbox
         self.pub_det.publish(detections)
         self.get_logger().info("Detected {} Persons".format(len(detections.boxes)))
-            
-        combined_img = self.model.draw_detections(image)
-        cv2.namedWindow("Output", cv2.WINDOW_NORMAL)
-        cv2.imshow("Output", combined_img)
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            exit(1)
