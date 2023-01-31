@@ -76,7 +76,7 @@ class Turtlebot3RandomBouncer(Node):
         return SetParametersResult(successful=True)
 
     def __init__(self, node_name: str = 'turtlebot_explorer'):
-        super(Turtlebot3Explorer, self).__init__(node_name=node_name)
+        super(Turtlebot3RandomBouncer, self).__init__(node_name=node_name)
         self.declare_parameters(
             namespace="",
             parameters=[
