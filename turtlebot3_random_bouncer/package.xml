@@ -4,18 +4,18 @@
   <name>turtlebot3_random_bouncer</name>
   <version>0.1.0</version>
   <description>turtlebot3 random bouncer</description>
-  <maintainer email="luizcarloscosmifilho@gmail.com">luiz</maintainer>
+  <author email="luizcarloscosmifilho@gmail.com">Luiz Carlos Cosmi Filho</author>
+  <maintainer email="luizcarloscosmifilho@gmail.com">Luiz Carlos Cosmi Filho</maintainer>
+  <url type="repository">https://github.com/autonomous-robots/assignment-2</url>
+  <url type="bugtracker">https://github.com/autonomous-robots/assignment-2/issues</url>
   <license>Apache License 2.0</license>
-
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>vision_msgs</depend>
-
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
-
   <export>
     <build_type>ament_python</build_type>
   </export>
