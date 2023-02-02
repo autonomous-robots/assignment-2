@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import random
+import time
 from enum import Enum
 from typing import List
 
@@ -76,7 +76,7 @@ class Turtlebot3RandomBouncer(Node):
         return SetParametersResult(successful=True)
 
     def __init__(self, node_name: str = 'turtlebot_explorer'):
-        super(Turtlebot3Explorer, self).__init__(node_name=node_name)
+        super(Turtlebot3RandomBouncer, self).__init__(node_name=node_name)
         self.declare_parameters(
             namespace="",
             parameters=[
@@ -141,6 +141,7 @@ class Turtlebot3RandomBouncer(Node):
         self._scan_init = False
 
         self.drift = 0.1
+        self.ti = time.time()
 
         self.state = State.UNKOWN
         self.enable = False
@@ -166,14 +167,11 @@ class Turtlebot3RandomBouncer(Node):
             if len(self._bboxes.boxes) > 0:
                 for i in range(len(self._bboxes.boxes)):
                     bbox_x = self._bboxes.boxes[i].center.position.x
-                    # if bbox_x > 960:
                     self.set_robot(state=State.DRIFT)
-                    # self.drift = 0.1
-                    # else:
-                    # self.set_robot(state=State.DRIFT)
-                    # self.drift = -0.1
+                    self.ti = time.time()
             else:
-                self.set_robot(state=self.state)
+                if (time.time() - self.ti) > 2: 
+                    self.set_robot(state=self.state)
 
     def _update_callback(self):
         if self._scan_init:
