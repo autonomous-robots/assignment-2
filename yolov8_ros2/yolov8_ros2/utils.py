@@ -1,15 +1,17 @@
 import cv2
 import numpy as np
 
-CLASS_NAMES = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
-               'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
-               'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee',
-               'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard',
-               'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
-               'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch',
-               'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard',
-               'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
-               'scissors', 'teddy bear', 'hair drier', 'toothbrush']
+CLASS_NAMES = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck',
+               'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench',
+               'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra',
+               'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
+               'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard',
+               'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife',
+               'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot',
+               'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed',
+               'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard',
+               'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book',
+               'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
 
 # Create a list of colors for each class where each color is a tuple of 3 integer values
 rng = np.random.default_rng(3)
@@ -39,6 +41,7 @@ def compute_iou(box, boxes):
     union_area = box_area + boxes_area - intersection_area
     iou = intersection_area / union_area
     return iou
+
 
 def xywh2xyxy(x):
     y = np.copy(x)
@@ -71,7 +74,6 @@ def draw_detections(image, boxes, scores, class_ids, mask_alpha=0.3):
                       (x1 + tw, y1 - th), color, -1)
         cv2.putText(det_img, caption, (x1, y1),
                     cv2.FONT_HERSHEY_SIMPLEX, size, (255, 255, 255), text_thickness, cv2.LINE_AA)
-
         cv2.putText(mask_img, caption, (x1, y1),
                     cv2.FONT_HERSHEY_SIMPLEX, size, (255, 255, 255), text_thickness, cv2.LINE_AA)
     return cv2.addWeighted(mask_img, mask_alpha, det_img, 1 - mask_alpha, 0)

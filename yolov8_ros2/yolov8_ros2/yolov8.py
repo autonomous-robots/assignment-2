@@ -4,9 +4,14 @@ import onnxruntime
 
 from yolov8_ros2.utils import xywh2xyxy, nms, draw_detections
 
-class YOLOv8:
 
-    def __init__(self, model_path: str, conf_threshold: float = 0.2, iou_threshold: float = 0.5):
+class YOLOv8:
+    def __init__(
+        self,
+        model_path: str,
+        conf_threshold: float = 0.2,
+        iou_threshold: float = 0.5,
+    ) -> None:
         self.conf_threshold = conf_threshold
         self.iou_threshold = iou_threshold
         self.session = onnxruntime.InferenceSession(
@@ -17,7 +22,7 @@ class YOLOv8:
             ],
         )
         self.get_input_details()
-        self.get_output_details()        
+        self.get_output_details()
 
     def __call__(self, image):
         input_tensor = self.prepare_input(image)
@@ -31,9 +36,6 @@ class YOLOv8:
         input_img = cv2.resize(input_img, (self.input_width, self.input_height))
         input_img = input_img / 255.0
         input_img = input_img.transpose(2, 0, 1)
-        # if 'CUDAExecutionProvider' in self.session.get_providers():            
-            # input_tensor = input_img[np.newaxis, :, :, :].astype(np.float32)
-        # else:
         input_tensor = input_img[np.newaxis, :, :, :].astype(np.float16)
         return input_tensor
 
@@ -60,7 +62,12 @@ class YOLOv8:
         return boxes
 
     def rescale_boxes(self, boxes):
-        input_shape = np.array([self.input_width, self.input_height, self.input_width, self.input_height])
+        input_shape = np.array([
+            self.input_width,
+            self.input_height,
+            self.input_width,
+            self.input_height,
+        ])
         boxes = np.divide(boxes, input_shape, dtype=np.float32)
         boxes *= np.array([self.img_width, self.img_height, self.img_width, self.img_height])
         return boxes
