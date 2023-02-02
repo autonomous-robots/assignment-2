@@ -20,7 +20,7 @@ spec:
       containers:
       - name: ros2-random-bouncer
         image: luizcarloscf/ros2-random-bouncer:test
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         command: ["/entrypoint.sh"]
         args: ["ros2", "launch", "turtlebot3_random_bouncer", "turtlebot3_random_bouncer.launch.py"]
         securityContext:
