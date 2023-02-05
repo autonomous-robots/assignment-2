@@ -1,6 +1,5 @@
 FROM osrf/ros:humble-desktop-full
 
-# Change the default shell to bash
 SHELL [ "/bin/bash" , "-c" ]
 
 RUN apt-get update && \
@@ -15,7 +14,7 @@ RUN python3 -m pip install --upgrade pip && \
 WORKDIR /opt/ros2_ws
 
 COPY assignment-2/yolov8_ros2 /opt/ros2_ws/src/yolov8_ros2
-COPY assignment-2/deploy/docker/person_detector/cpu/entrypoint.sh /entrypoint.sh 
+COPY assignment-2/yolov8_ros2/docker/entrypoint.sh /entrypoint.sh 
 
 RUN source /opt/ros/humble/setup.bash && \
     rosdep install -i --from-path src --rosdistro humble -y && \
