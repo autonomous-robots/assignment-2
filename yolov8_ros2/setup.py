@@ -24,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'person_detector = yolov8_ros2.main:main'
+            'person_detector = yolov8_ros2.main:main',
+            'render_detections = yolov8_ros2.view:main',
         ],
     },
 )

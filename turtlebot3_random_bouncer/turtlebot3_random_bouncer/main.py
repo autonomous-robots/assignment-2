@@ -1,4 +1,4 @@
-# Copyright 2022 Luiz Carlos Cosmi Filho and others.
+# Copyright 2023 Luiz Carlos Cosmi Filho and others.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -165,12 +165,10 @@ class Turtlebot3RandomBouncer(Node):
         self.get_logger().info("Enable: {}".format(self.enable))
         if self.enable:
             if len(self._bboxes.boxes) > 0:
-                for i in range(len(self._bboxes.boxes)):
-                    bbox_x = self._bboxes.boxes[i].center.position.x
-                    self.set_robot(state=State.DRIFT)
-                    self.ti = time.time()
+                self.set_robot(state=State.DRIFT)
+                self.ti = time.time()
             else:
-                if (time.time() - self.ti) > 2: 
+                if (time.time() - self.ti) > 2:
                     self.set_robot(state=self.state)
 
     def _update_callback(self):
@@ -193,12 +191,12 @@ class Turtlebot3RandomBouncer(Node):
             twist.angular.z = 0.0
             self._publisher.publish(twist)
         elif state == State.DRIFT:
-            twist.linear.x = self.linear_speed/2
+            twist.linear.x = self.linear_speed / 2
             twist.angular.z = self.drift
             self._publisher.publish(twist)
         elif state == State.ROTATE:
             twist.linear.x = 0.0
-            twist.angular.z = self.drift*2
+            twist.angular.z = self.drift * 2
             self._publisher.publish(twist)
 
     def detect_obstacle(self):
@@ -248,6 +246,7 @@ class Turtlebot3RandomBouncer(Node):
                 pass
         self.get_logger().info("State {}".format(self.state))
 
+
 def main():
     rclpy.init(args=None)
     node = Turtlebot3RandomBouncer()
@@ -258,6 +257,7 @@ def main():
     finally:
         node.destroy_node()
         rclpy.try_shutdown()
+
 
 if __name__ == "__main__":
     main()
