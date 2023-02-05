@@ -45,6 +45,15 @@ class PersonDetector(Node):
                 depth=10,
             )
         )
+        self.pub_rendered = self.create_publisher(
+            CompressedImage,
+            "/rendered",
+            qos_profile=QoSProfile(
+                depth=1,
+                reliability=ReliabilityPolicy.BEST_EFFORT,
+                history=HistoryPolicy.KEEP_LAST,
+            )
+        )
         self.model = YOLOv8(model_path, conf_threshold=0.3, iou_threshold=0.5)
 
     def image_callback(self, message: CompressedImage) -> None:
@@ -71,4 +80,10 @@ class PersonDetector(Node):
                 else:
                     detections.boxes[0] = bbox
         self.pub_det.publish(detections)
+        rendered = self.model.draw_detections(image)
+        msg_jpeg = CompressedImage()
+        msg_jpeg.header.stamp = message.header.stamp
+        msg_jpeg.format = "jpeg"
+        msg_jpeg.data = np.array(cv2.imencode('.jpg', rendered)[1]).tostring()
+        self.pub_rendered.publish(msg_jpeg)
         self.get_logger().info("Detected {} Persons".format(len(detections.boxes)))
