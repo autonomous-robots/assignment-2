@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>assignment-2</name>
+  <version>0.1.0</version>
+  <description>ROS packages for assignment-2 (metapackage)</description>
+  <author email="luizcarloscosmifilho@gmail.com">Luiz Carlos Cosmi Filho</author>
+  <maintainer email="luizcarloscosmifilho@gmail.com">Luiz Carlos Cosmi Filho</maintainer>
+  <url type="repository">https://github.com/autonomous-robots/assignment-2</url>
+  <url type="bugtracker">https://github.com/autonomous-robots/assignment-2/issues</url>
+  <license>Apache License 2.0</license>
+  <exec_depend>custom_worlds</exec_depend>
+  <exec_depend>turtlebot3_random_bouncer</exec_depend>
+  <exec_depend>yolov8_ros2</exec_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
